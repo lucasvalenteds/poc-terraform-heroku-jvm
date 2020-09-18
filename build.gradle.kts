@@ -16,3 +16,8 @@ dependencies {
 configure<ApplicationPluginConvention> {
     mainClassName = "com.example.Main"
 }
+
+configure<JavaPluginConvention> {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}

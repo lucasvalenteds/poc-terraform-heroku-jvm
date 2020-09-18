@@ -1,7 +1,6 @@
 plugins {
     java
     application
-    distribution
     id("com.github.johnrengelman.shadow") version "6.0.0"
 }
 

@@ -15,7 +15,7 @@ public class Main {
         WebServer server = WebServer.builder()
             .routing(Routing.builder().get("/", (request, response) -> {
                 Long counter = redis.incr("counter");
-                response.status(200).send(counter);
+                response.status(200).send("Counter = " + counter);
             }))
             .port(Integer.parseInt(System.getenv("PORT")))
             .build();

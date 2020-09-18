@@ -29,7 +29,7 @@ provider "heroku" {
 	api_key = var.heroku_api_key
 }
 
-resource "heroku_app" "server" {
+resource "heroku_app" "application" {
 	name   = var.heroku_app_name
 	region = var.heroku_region
 
@@ -38,20 +38,20 @@ resource "heroku_app" "server" {
 	}
 }
 
-resource "heroku_build" "server" {
-	app = heroku_app.server.name
+resource "heroku_build" "application" {
+	app = heroku_app.application.name
 	buildpacks = ["https://github.com/heroku/heroku-buildpack-gradle.git"]
 
 	source = {
-		path = "server/"
+		path = "application/"
 	}
 }
 
 resource "heroku_addon" "database" {
-	app  = heroku_app.server.name
+	app  = heroku_app.application.name
 	plan = "heroku-redis:hobby-dev"
 }
 
-output "server_url" {
-	value = "https://${heroku_app.server.name}.herokuapp.com"
+output "application_url" {
+	value = "https://${heroku_app.application.name}.herokuapp.com"
 }

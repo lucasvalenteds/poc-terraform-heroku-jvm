@@ -6,7 +6,7 @@ HEROKU_REGION = ""
 init:
 	@terraform init
 
-deploy: init
+provision: init
 	@terraform apply \
 			-auto-approve \
 			-var heroku_region="$(HEROKU_REGION)" \

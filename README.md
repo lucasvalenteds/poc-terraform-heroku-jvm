@@ -10,5 +10,5 @@ Both application and database should be deployed without manual actions. The onl
 
 | Description | Command |
 | :--- | :--- |
-| Provision | `make deploy` |
+| Provision | `make provision` |
 | Destroy | `make destroy` |

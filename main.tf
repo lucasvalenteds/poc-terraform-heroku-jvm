@@ -1,57 +1,57 @@
 variable "heroku_email" {
-	type = string
+  type = string
 }
 
 variable "heroku_api_key" {
-	type = string
+  type = string
 }
 
 variable "heroku_app_name" {
-	type = string
+  type = string
 }
 
 variable "heroku_region" {
-	type = string
-	default = "us"
+  type = string
+  default = "us"
 }
 
 terraform {
-	required_providers {
-		heroku = {
-			source = "heroku/heroku"
-			version = "2.6.1"
-		}
-	}
+  required_providers {
+    heroku = {
+      source = "heroku/heroku"
+      version = "2.6.1"
+    }
+  }
 }
 
 provider "heroku" {
-	email   = var.heroku_email
-	api_key = var.heroku_api_key
+  email   = var.heroku_email
+  api_key = var.heroku_api_key
 }
 
 resource "heroku_app" "application" {
-	name   = var.heroku_app_name
-	region = var.heroku_region
+  name   = var.heroku_app_name
+  region = var.heroku_region
 
-	config_vars = {
-		GRADLE_TASK = "shadowJar"
-	}
+  config_vars = {
+    GRADLE_TASK = "shadowJar"
+  }
 }
 
 resource "heroku_build" "application" {
-	app = heroku_app.application.name
-	buildpacks = ["https://github.com/heroku/heroku-buildpack-gradle.git"]
+  app = heroku_app.application.name
+  buildpacks = ["https://github.com/heroku/heroku-buildpack-gradle.git"]
 
-	source = {
-		path = "application/"
-	}
+  source = {
+    path = "application/"
+  }
 }
 
 resource "heroku_addon" "database" {
-	app  = heroku_app.application.name
-	plan = "heroku-redis:hobby-dev"
+  app  = heroku_app.application.name
+  plan = "heroku-redis:hobby-dev"
 }
 
 output "application_url" {
-	value = "https://${heroku_app.application.name}.herokuapp.com"
+  value = "https://${heroku_app.application.name}.herokuapp.com"
 }
